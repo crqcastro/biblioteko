@@ -1,19 +1,24 @@
 package br.com.cesarcastro.biblioteko.model;
 
+import javax.persistence.Entity;
+
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 @Data
-public class Autor {
+@ApiModel(value = "autor")
+@Entity
+public class AutorModel {
 	
 	private Long id;
 	private String nome;
 	private String sobrenome;
 	
-	public Autor(String nome) {
+	public AutorModel(String nome) {
 		this.nome = nome;
 	}
 	
-	public Autor(String nome, String sobrenome) {
+	public AutorModel(String nome, String sobrenome) {
 		this.nome = nome;
 		this.sobrenome = sobrenome;
 	}

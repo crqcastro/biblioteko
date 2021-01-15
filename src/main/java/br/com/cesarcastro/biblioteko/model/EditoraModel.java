@@ -1,9 +1,14 @@
 package br.com.cesarcastro.biblioteko.model;
 
+import javax.persistence.Entity;
+
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
 @Data
-public class Editora {
+@ApiModel(value = "editora")
+@Entity
+public class EditoraModel {
 	
 	private Long id;
 	private String nome;
@@ -11,7 +16,7 @@ public class Editora {
 	private String uf;
 	private String municipio;
 	
-	public Editora(String nome) {
+	public EditoraModel(String nome) {
 		this.nome = nome;
 	}
 

@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.cesarcastro.biblioteko.model.Autor;
-import br.com.cesarcastro.biblioteko.model.Editora;
+import br.com.cesarcastro.biblioteko.model.AutorModel;
+import br.com.cesarcastro.biblioteko.model.EditoraModel;
 import br.com.cesarcastro.biblioteko.model.LivroModel;
 import br.com.cesarcastro.biblioteko.service.LivroService;
 import io.swagger.annotations.ApiOperation;
@@ -46,13 +46,13 @@ public class LivroController {
 		LivroModel params = new LivroModel();
 		params.setTitulo(titulo);
 		
-		List<Autor> listaAutor = new ArrayList<>();
+		List<AutorModel> listaAutor = new ArrayList<>();
 		Arrays.asList(autores.split(" ")).forEach(s -> {
-			Autor autor = new Autor(s);
+			AutorModel autor = new AutorModel(s);
 			listaAutor.add(autor);
 		});
 		params.setAutores(listaAutor);
-		params.setEditora(new Editora(editora));
+		params.setEditora(new EditoraModel(editora));
 		params.setTermosChave(chaves==null?null:Arrays.asList(chaves.split(" ")));
 		
 		
