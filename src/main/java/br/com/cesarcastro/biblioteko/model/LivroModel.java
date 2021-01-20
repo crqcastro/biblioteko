@@ -19,6 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -29,6 +30,7 @@ import lombok.Data;
 @ApiModel(value = "livro")
 @Entity
 @Table(name="tbl_livro",uniqueConstraints={@UniqueConstraint(columnNames={"ISBN"})})
+@DynamicUpdate
 public class LivroModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -54,5 +56,6 @@ public class LivroModel implements Serializable {
 	   joinColumns={@JoinColumn(name="id_livro")},
 	   inverseJoinColumns={@JoinColumn(name="id_autor")})
 	private List<AutorModel> autores;
+	private Integer status;
 	
 }

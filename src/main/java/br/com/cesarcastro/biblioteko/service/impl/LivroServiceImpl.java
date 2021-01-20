@@ -10,9 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.cesarcastro.biblioteko.dao.LivroDAO;
 import br.com.cesarcastro.biblioteko.model.LivroModel;
 import br.com.cesarcastro.biblioteko.service.LivroService;
+import javassist.NotFoundException;
 
 @Service
-@Transactional(propagation=Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class)
+@Transactional(propagation=Propagation.REQUIRED, readOnly=false, noRollbackFor=Exception.class)
 public class LivroServiceImpl implements LivroService  {
 
 	private LivroDAO livroDAO;
@@ -41,6 +42,28 @@ public class LivroServiceImpl implements LivroService  {
 	@Override
 	public List<LivroModel> getListaLivros(Integer offset, Integer size) {
 		return this.livroDAO.listarLivros(offset, size);
+	}
+
+	@Override
+	public void deleteLivro(Long id) {
+		LivroModel lm = this.livroDAO.recuperar(id);
+		lm.setStatus(0);;
+		this.livroDAO.excluir(lm);
+	}
+
+	@Override
+	public void alterarStatusLivro(Long id, Integer status) throws NotFoundException {
+		LivroModel lm = this.livroDAO.recuperar(id);
+		if(lm==null)
+			throw new NotFoundException("Produto ID"+id+" não encontrado");
+		lm.setStatus(status);
+		this.livroDAO.merge(lm);
+	}
+
+	@Override
+	public void alterarLivro(LivroModel livro) {
+		this.livroDAO.merge(livro);
+		
 	}
 
 

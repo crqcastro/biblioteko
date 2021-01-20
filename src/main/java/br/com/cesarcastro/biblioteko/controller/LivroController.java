@@ -5,11 +5,14 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,9 +25,10 @@ import br.com.cesarcastro.biblioteko.service.LivroService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import javassist.NotFoundException;
 
 @RestController
-@RequestMapping("/livro")
+@RequestMapping(path = "/livro")
 @Validated
 public class LivroController {
 
@@ -85,6 +89,44 @@ public class LivroController {
 		List<LivroModel> livros = livroService.getListaLivros(offset, size);
 
 		return ResponseEntity.ok(livros);
+	}
+
+	@ApiOperation(value = "Deleta um livro pelo Id")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna 200 quando conclui"),
+			@ApiResponse(code = 500, message = "Foi gerada uma exceção"), })
+	@DeleteMapping(path = "/{id}")
+	public ResponseEntity<LivroModel> deleteLivro(@PathVariable("id") Long id) {
+
+		livroService.deleteLivro(id);
+
+		return ResponseEntity.status(HttpStatus.OK).build();
+	}
+
+	@ApiOperation(value = "Altera o status de um livro pelo Id")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna 200 quando conclui"),
+			@ApiResponse(code = 404, message = "ID inexistente"),
+			@ApiResponse(code = 500, message = "Foi gerada uma exceção"), })
+	@PutMapping(path = "/{operacao}/{id}")
+	public ResponseEntity<LivroModel> updateStatusLivro(@PathVariable("id") Long id,
+			@PathVariable("operacao") Integer status) {
+
+		try {
+			livroService.alterarStatusLivro(id, status);
+		} catch (NotFoundException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+		}
+
+		return ResponseEntity.status(HttpStatus.OK).build();
+	}
+
+	@ApiOperation(value = "Altera os dados de um livro ")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna 200 quando conclui"),
+			@ApiResponse(code = 500, message = "Foi gerada uma exceção"), })
+	@PutMapping
+	public ResponseEntity<LivroModel> updateLivro(@NotNull @RequestBody LivroModel livro) {
+
+		livroService.alterarLivro(livro);
+		return ResponseEntity.status(HttpStatus.OK).build();
 	}
 
 }
