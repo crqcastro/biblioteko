@@ -38,5 +38,10 @@ public class LivroServiceImpl implements LivroService  {
 		return this.livroDAO.findByParams(params);
 	}
 
+	@Override
+	public List<LivroModel> getListaLivros(Integer offset, Integer size) {
+		return this.livroDAO.listarLivros(offset, size);
+	}
+
 
 }

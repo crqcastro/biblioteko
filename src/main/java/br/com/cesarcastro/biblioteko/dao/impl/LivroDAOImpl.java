@@ -17,13 +17,13 @@ import br.com.cesarcastro.biblioteko.model.LivroModel;
 public class LivroDAOImpl extends DaoGenericoImpl<LivroModel, Long> implements LivroDAO {
 
 	@PersistenceContext
-    private EntityManager entityManager;
+	private EntityManager entityManager;
 
-    @PostConstruct
-    public void init() {
-        super.instanciate(this.entityManager, LivroModel.class);
-    }
-    
+	@PostConstruct
+	public void init() {
+		super.instanciate(this.entityManager, LivroModel.class);
+	}
+
 	@Override
 	public List<LivroModel> findByParams(LivroModel params) {
 		StringBuilder sb = new StringBuilder("select e from LivroModel e where 1=1 ");
@@ -37,5 +37,13 @@ public class LivroDAOImpl extends DaoGenericoImpl<LivroModel, Long> implements L
 		return query.getResultList();
 	}
 
+	@Override
+	public List<LivroModel> listarLivros(Integer offset, Integer size) {
+		TypedQuery<LivroModel> query = entityManager.createQuery("select e from LivroModel e", LivroModel.class);
+		query.setFirstResult(offset);
+		query.setMaxResults(size);
+	
+		return query.getResultList();
+	}
 
 }

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sun.istack.NotNull;
@@ -35,45 +36,55 @@ public class LivroController {
 	}
 
 	@ApiOperation(value = "Obtém detalhes de um livro por seu ID")
-	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "Retorna um livro por seu ID"),
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna um livro por seu ID"),
 			@ApiResponse(code = 404, message = "Livro não encontrado"),
 			@ApiResponse(code = 500, message = "Foi gerada uma exceção"), })
 	@GetMapping(path = "/{id}")
-	public ResponseEntity<LivroModel> getLivroById(@PathVariable("id") Long id){
-		
+	public ResponseEntity<LivroModel> getLivroById(@PathVariable("id") Long id) {
+
 		LivroModel livro = livroService.findById(id);
-		if(livro == null || livro.getTitulo() == null)
+		if (livro == null || livro.getTitulo() == null)
 			return ResponseEntity.notFound().build();
 		System.out.println(livro.getAutores().size());
 		return ResponseEntity.ok(livro);
 	}
-	
+
 	@ApiOperation(value = "Salva os dados de um livro")
-	@ApiResponses(value = {
-			@ApiResponse(code = 201, message = "Livro salvo"),
+	@ApiResponses(value = { @ApiResponse(code = 201, message = "Livro salvo"),
 			@ApiResponse(code = 204, message = "Erro ao salvar um livro"),
 			@ApiResponse(code = 400, message = "Requição não pode ser processada"),
 			@ApiResponse(code = 500, message = "Foi gerada uma exceção"), })
 	@PostMapping
-	public ResponseEntity<LivroModel> salvarLivro(@NotNull @RequestBody LivroModel livro) throws URISyntaxException{
+	public ResponseEntity<LivroModel> salvarLivro(@NotNull @RequestBody LivroModel livro) throws URISyntaxException {
 		livroService.salvarLivro(livro);
-		if(livro.getId()==null)
+		if (livro.getId() == null)
 			return ResponseEntity.status(204).build();
-		
-		return ResponseEntity.created(new URI("/livro/"+livro.getId())).build();
+
+		return ResponseEntity.created(new URI("/livro/" + livro.getId())).build();
 	}
-	
+
 	@ApiOperation(value = "Obtém lista de livros pelo titulo")
-	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "Retorna uma lista de livros pelo título"),
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna uma lista de livros pelo título"),
 			@ApiResponse(code = 500, message = "Foi gerada uma exceção"), })
-	@GetMapping
-	public ResponseEntity<List<LivroModel>> getLivroByTitulo(@RequestBody LivroModel params){
-		
+	@GetMapping(path = "/titulo")
+	public ResponseEntity<List<LivroModel>> getLivroByTitulo(@RequestBody LivroModel params) {
+
 		List<LivroModel> livros = livroService.findByParams(params);
-		
+
 		return ResponseEntity.ok(livros);
 	}
-	
+
+	@ApiOperation(value = "Obtém lista de livros")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna uma lista de livros"),
+			@ApiResponse(code = 500, message = "Foi gerada uma exceção"), })
+	@GetMapping
+	public ResponseEntity<List<LivroModel>> getListaLivros(
+			@RequestParam(name = "offset", defaultValue = "0") Integer offset,
+			@RequestParam(name = "size", defaultValue = "10") Integer size) {
+
+		List<LivroModel> livros = livroService.getListaLivros(offset, size);
+
+		return ResponseEntity.ok(livros);
+	}
+
 }

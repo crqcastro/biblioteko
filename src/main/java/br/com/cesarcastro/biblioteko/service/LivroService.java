@@ -12,4 +12,6 @@ public interface LivroService {
 
 	List<LivroModel> findByParams(LivroModel params);
 
+	List<LivroModel> getListaLivros(Integer offset, Integer size);
+
 }
