@@ -4,22 +4,22 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import br.com.cesarcastro.biblioteko.dao.LivroDao;
 import br.com.cesarcastro.biblioteko.model.LivroModel;
+import br.com.cesarcastro.biblioteko.repository.LivroRepository;
 import br.com.cesarcastro.biblioteko.service.LivroService;
 
 public class LivroServiceImpl implements LivroService{
 
-	private LivroDao livroDao;
+	private LivroRepository LivroRepository;
 
 	@Autowired
-	public LivroServiceImpl(LivroDao livroDao) {
-		this.livroDao = livroDao;
+	public LivroServiceImpl(LivroRepository livroDao) {
+		this.LivroRepository = livroDao;
 	}
 	
 	@Override
 	public List<LivroModel> buscarLivros(Long offset, Long size, LivroModel params) {
-		return livroDao.buscarLivros(offset, size, params);
+		return LivroRepository.buscarLivros(offset, size, params);
 	}
 
 }

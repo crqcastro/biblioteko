@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
@@ -13,6 +16,7 @@ import lombok.Data;
 @Data
 @ApiModel(value = "livro")
 @Entity
+@Table(name="livro")
 public class LivroModel {
 
 	@Id
@@ -25,8 +29,11 @@ public class LivroModel {
 	private Integer edicao;
 	private Integer anoPublicacao;
 	private String resumo;
+	@ManyToMany
 	private List<String> termosChave;
+	@ManyToOne
 	private EditoraModel editora;
+	@ManyToMany
 	private List<AutorModel> autores;
 	
 }
