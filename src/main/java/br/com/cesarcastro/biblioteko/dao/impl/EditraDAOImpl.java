@@ -31,8 +31,9 @@ public class EditraDAOImpl extends DaoGenericoImpl<EditoraModel, Long> implement
 			sb.append("and lower(e.nome) like lower(:nome) ");
 		}
 		TypedQuery<EditoraModel> query = entityManager.createQuery(sb.toString(), EditoraModel.class);
-
-		query.setParameter("nome", "%" + editora.getNome() + "%");
+		if (StringUtils.hasLength(editora.getNome())) {
+			query.setParameter("nome", "%" + editora.getNome() + "%");
+		}
 
 		return query.getResultList();
 	}

@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import br.com.cesarcastro.biblioteko.dao.LivroDAO;
 import br.com.cesarcastro.biblioteko.model.LivroModel;
@@ -13,8 +11,7 @@ import br.com.cesarcastro.biblioteko.service.LivroService;
 import javassist.NotFoundException;
 
 @Service
-@Transactional(propagation=Propagation.REQUIRED, readOnly=false, noRollbackFor=Exception.class)
-public class LivroServiceImpl implements LivroService  {
+public class LivroServiceImpl implements LivroService {
 
 	private LivroDAO livroDAO;
 
@@ -22,7 +19,7 @@ public class LivroServiceImpl implements LivroService  {
 	public LivroServiceImpl(LivroDAO livroDAO) {
 		this.livroDAO = livroDAO;
 	}
-	
+
 	@Override
 	public LivroModel findById(Long id) {
 		return this.livroDAO.recuperar(id);
@@ -31,7 +28,6 @@ public class LivroServiceImpl implements LivroService  {
 	@Override
 	public void salvarLivro(LivroModel livro) {
 		this.livroDAO.salvar(livro);
-		
 	}
 
 	@Override
@@ -47,15 +43,16 @@ public class LivroServiceImpl implements LivroService  {
 	@Override
 	public void deleteLivro(Long id) {
 		LivroModel lm = this.livroDAO.recuperar(id);
-		lm.setStatus(0);;
+		lm.setStatus(0);
+		;
 		this.livroDAO.excluir(lm);
 	}
 
 	@Override
 	public void alterarStatusLivro(Long id, Integer status) throws NotFoundException {
 		LivroModel lm = this.livroDAO.recuperar(id);
-		if(lm==null)
-			throw new NotFoundException("Produto ID"+id+" não encontrado");
+		if (lm == null)
+			throw new NotFoundException("Produto ID" + id + " não encontrado");
 		lm.setStatus(status);
 		this.livroDAO.merge(lm);
 	}
@@ -63,8 +60,7 @@ public class LivroServiceImpl implements LivroService  {
 	@Override
 	public void alterarLivro(LivroModel livro) {
 		this.livroDAO.merge(livro);
-		
-	}
 
+	}
 
 }

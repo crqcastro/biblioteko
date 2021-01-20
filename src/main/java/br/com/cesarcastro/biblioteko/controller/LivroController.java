@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sun.istack.NotNull;
 
+import br.com.cesarcastro.biblioteko.exceptions.DaoException;
 import br.com.cesarcastro.biblioteko.model.LivroModel;
 import br.com.cesarcastro.biblioteko.service.LivroService;
 import io.swagger.annotations.ApiOperation;
@@ -59,8 +61,17 @@ public class LivroController {
 			@ApiResponse(code = 400, message = "Requição não pode ser processada"),
 			@ApiResponse(code = 500, message = "Foi gerada uma exceção"), })
 	@PostMapping
-	public ResponseEntity<LivroModel> salvarLivro(@NotNull @RequestBody LivroModel livro) throws URISyntaxException {
-		livroService.salvarLivro(livro);
+	public ResponseEntity<String> salvarLivro(@NotNull @RequestBody LivroModel livro) throws URISyntaxException {
+		if(!StringUtils.hasLength(livro.getTitulo())||livro.getAutores()==null)
+			return ResponseEntity.badRequest().build();
+		
+		try {
+			livroService.salvarLivro(livro);
+		}catch(DaoException e) {
+			e.printStackTrace();
+			return ResponseEntity.badRequest().body("Livro ja existente");
+		}
+		
 		if (livro.getId() == null)
 			return ResponseEntity.status(204).build();
 
@@ -73,6 +84,23 @@ public class LivroController {
 	@GetMapping(path = "/titulo")
 	public ResponseEntity<List<LivroModel>> getLivroByTitulo(@RequestBody LivroModel params) {
 
+		if(StringUtils.hasLength(params.getTitulo()))
+			return ResponseEntity.badRequest().build();
+		
+		List<LivroModel> livros = livroService.findByParams(params);
+
+		return ResponseEntity.ok(livros);
+	}
+	
+	@ApiOperation(value = "Obtém lista de livros pelo ISBN")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna uma lista de livros pelo ISBN"),
+			@ApiResponse(code = 500, message = "Foi gerada uma exceção"), })
+	@GetMapping(path = "/ISBN")
+	public ResponseEntity<List<LivroModel>> getLivroByISBN(@RequestBody LivroModel params) {
+
+		if(StringUtils.hasLength(params.getISBN()))
+			return ResponseEntity.badRequest().build();
+		
 		List<LivroModel> livros = livroService.findByParams(params);
 
 		return ResponseEntity.ok(livros);

@@ -37,10 +37,15 @@ public class AutorDaoImpl extends DaoGenericoImpl<AutorModel, Long> implements A
 			sb.append("and lower(e.shortName) like lower(:shortname) ");
 		}
 		TypedQuery<AutorModel> query = entityManager.createQuery(sb.toString(), AutorModel.class);
-
-		query.setParameter("nome", "%" + autor.getNome() + "%");
-		query.setParameter("sobrenome", "%" + autor.getSobrenome() + "%");
-		query.setParameter("shortname", "%" + autor.getShortName() + "%");
+		if (StringUtils.hasLength(autor.getNome())) {
+			query.setParameter("nome", "%" + autor.getNome() + "%");
+		}
+		if (StringUtils.hasLength(autor.getSobrenome())) {
+			query.setParameter("sobrenome", "%" + autor.getSobrenome() + "%");
+		}
+		if (StringUtils.hasLength(autor.getShortName())) {
+			query.setParameter("shortname", "%" + autor.getShortName() + "%");
+		}
 
 		return query.getResultList();
 	}

@@ -9,7 +9,7 @@ spring:
    url: jdbc:mysql://localhost:3306/biblioteko?autoReconnect=true&useSSL=false&useTimezone=true&serverTimezone=UTC
    username: ccastro
    password: ccastro
-   driver-class-name: com.mysql.jdbc.Driver
+   driver-class-name: com.mysql.cj.jdbc.Driver
  jpa:
   hibernate.ddl-auto: update
   generate-ddl: true

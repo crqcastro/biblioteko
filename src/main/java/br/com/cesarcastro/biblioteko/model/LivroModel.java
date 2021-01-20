@@ -3,7 +3,6 @@ package br.com.cesarcastro.biblioteko.model;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -23,6 +22,8 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.sun.istack.NotNull;
+
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
@@ -38,6 +39,7 @@ public class LivroModel implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotNull
 	private String titulo;
 	private String ISBN;
 	private Integer edicao;
@@ -48,9 +50,9 @@ public class LivroModel implements Serializable {
 	@CollectionTable(name = "tbl_termosChave")
 	@Fetch(FetchMode.SUBSELECT)
 	private List<String> termosChave;
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@ManyToOne(fetch = FetchType.EAGER)
 	private EditoraModel editora;
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	@JoinTable(name="tbl_livro_autores",
 	   joinColumns={@JoinColumn(name="id_livro")},
