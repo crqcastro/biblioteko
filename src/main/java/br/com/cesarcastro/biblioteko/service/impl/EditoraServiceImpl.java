@@ -10,22 +10,29 @@ import br.com.cesarcastro.biblioteko.model.EditoraModel;
 import br.com.cesarcastro.biblioteko.service.EditoraService;
 
 @Service
-public class EditoraServiceImpl implements EditoraService{
+public class EditoraServiceImpl implements EditoraService {
 
 	private EditoraDAO editoraDAO;
-	
+
 	@Autowired
 	public EditoraServiceImpl(EditoraDAO editoraDAO) {
 		this.editoraDAO = editoraDAO;
 	}
+
 	@Override
 	public void salvar(EditoraModel editora) {
 		this.editoraDAO.salvar(editora);
-		
+
 	}
+
 	@Override
 	public List<EditoraModel> obterEditorasPeloNome(EditoraModel editora) {
 		return this.editoraDAO.obterEditorasPeloNome(editora);
+	}
+
+	@Override
+	public EditoraModel obterEditoraById(Long id) {
+		return this.editoraDAO.recuperar(id);
 	}
 
 }

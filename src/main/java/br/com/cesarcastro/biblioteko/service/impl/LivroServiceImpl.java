@@ -23,19 +23,19 @@ public class LivroServiceImpl implements LivroService  {
 	}
 	
 	@Override
-	public List<LivroModel> buscarLivros(Long offset, Long size, LivroModel params) {
-		return livroDAO.buscarLivros(offset, size, params);
-	}
-
-	@Override
 	public LivroModel findById(Long id) {
-		return livroDAO.recuperar(id);
+		return this.livroDAO.recuperar(id);
 	}
 
 	@Override
 	public void salvarLivro(LivroModel livro) {
-		livroDAO.salvar(livro);
+		this.livroDAO.salvar(livro);
 		
+	}
+
+	@Override
+	public List<LivroModel> findByParams(LivroModel params) {
+		return this.livroDAO.findByParams(params);
 	}
 
 

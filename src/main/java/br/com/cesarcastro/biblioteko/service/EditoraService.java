@@ -10,4 +10,6 @@ public interface EditoraService {
 
 	List<EditoraModel> obterEditorasPeloNome(EditoraModel editora);
 
+	EditoraModel obterEditoraById(Long id);
+
 }

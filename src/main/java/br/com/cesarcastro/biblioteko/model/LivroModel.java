@@ -17,6 +17,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -27,7 +28,7 @@ import lombok.Data;
 @Data
 @ApiModel(value = "livro")
 @Entity
-@Table(name="tbl_livro")
+@Table(name="tbl_livro",uniqueConstraints={@UniqueConstraint(columnNames={"ISBN"})})
 public class LivroModel implements Serializable {
 
 	private static final long serialVersionUID = 1L;

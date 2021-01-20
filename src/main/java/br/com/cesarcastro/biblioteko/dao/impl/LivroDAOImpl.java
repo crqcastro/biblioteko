@@ -5,8 +5,10 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.util.StringUtils;
 
 import br.com.cesarcastro.biblioteko.dao.LivroDAO;
 import br.com.cesarcastro.biblioteko.model.LivroModel;
@@ -23,9 +25,16 @@ public class LivroDAOImpl extends DaoGenericoImpl<LivroModel, Long> implements L
     }
     
 	@Override
-	public List<LivroModel> buscarLivros(Long offset, Long size, LivroModel params) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<LivroModel> findByParams(LivroModel params) {
+		StringBuilder sb = new StringBuilder("select e from LivroModel e where 1=1 ");
+		if (StringUtils.hasLength(params.getTitulo())) {
+			sb.append("and lower(e.titulo) like lower(:titulo) ");
+		}
+		TypedQuery<LivroModel> query = entityManager.createQuery(sb.toString(), LivroModel.class);
+
+		query.setParameter("titulo", "%" + params.getTitulo() + "%");
+
+		return query.getResultList();
 	}
 
 

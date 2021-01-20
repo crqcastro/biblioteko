@@ -2,6 +2,7 @@ package br.com.cesarcastro.biblioteko.controller;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -62,4 +63,17 @@ public class LivroController {
 		
 		return ResponseEntity.created(new URI("/livro/"+livro.getId())).build();
 	}
+	
+	@ApiOperation(value = "Obtém lista de livros pelo titulo")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Retorna uma lista de livros pelo título"),
+			@ApiResponse(code = 500, message = "Foi gerada uma exceção"), })
+	@GetMapping
+	public ResponseEntity<List<LivroModel>> getLivroByTitulo(@RequestBody LivroModel params){
+		
+		List<LivroModel> livros = livroService.findByParams(params);
+		
+		return ResponseEntity.ok(livros);
+	}
+	
 }

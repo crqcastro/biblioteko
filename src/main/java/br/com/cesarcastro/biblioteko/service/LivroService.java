@@ -6,10 +6,10 @@ import br.com.cesarcastro.biblioteko.model.LivroModel;
 
 public interface LivroService {
 
-	List<LivroModel> buscarLivros(Long offset, Long size, LivroModel params);
-
 	LivroModel findById(Long id);
 	
 	void salvarLivro(LivroModel livro);
+
+	List<LivroModel> findByParams(LivroModel params);
 
 }

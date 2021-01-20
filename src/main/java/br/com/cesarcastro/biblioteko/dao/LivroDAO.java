@@ -6,6 +6,6 @@ import br.com.cesarcastro.biblioteko.model.LivroModel;
 
 public interface LivroDAO extends DaoGenerico<LivroModel, Long> {
 
-	List<LivroModel> buscarLivros(Long offset, Long size, LivroModel params);
+	List<LivroModel> findByParams(LivroModel params);
 
 }

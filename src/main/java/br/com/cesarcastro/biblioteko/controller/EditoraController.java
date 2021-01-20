@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,10 +51,20 @@ public class EditoraController {
 
 	@ApiOperation(value = "Obtem lista de editoras pelo nome")
 	@ApiResponses(value = {
-			@ApiResponse(code = 200, message = "Erro ao salvar um Autor"),
+			@ApiResponse(code = 200, message = "Lista de editoras obtida com sucesso"),
 			@ApiResponse(code = 500, message = "Foi gerada uma exceção"), })
 	@GetMapping
-	public ResponseEntity<List<EditoraModel>> listaEditoraPeloNome(@RequestBody EditoraModel editora) throws URISyntaxException {
+	public ResponseEntity<List<EditoraModel>> listaEditoraPeloNome(@RequestBody EditoraModel editora){
 		return ResponseEntity.ok(this.editoraService.obterEditorasPeloNome(editora));
+	}
+	
+	@ApiOperation(value = "Obtem editora pelo id")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Editora obtida com sucesso"),
+			@ApiResponse(code = 404, message = "Editora não encontrada"),
+			@ApiResponse(code = 500, message = "Foi gerada uma exceção"), })
+	@GetMapping(path = "/{id}")
+	public ResponseEntity<EditoraModel> getEditoraById(@PathVariable("id") Long id){
+		return ResponseEntity.ok(this.editoraService.obterEditoraById(id));
 	}
 }
