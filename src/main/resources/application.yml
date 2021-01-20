@@ -7,8 +7,8 @@ spring:
  profiles: dev
  datasource:
    url: jdbc:mysql://localhost:3306/biblioteko?autoReconnect=true&useSSL=false&useTimezone=true&serverTimezone=UTC
-   username: root
-   password: root
+   username: ccastro
+   password: ccastro
    driver-class-name: com.mysql.jdbc.Driver
  jpa:
   hibernate.ddl-auto: update

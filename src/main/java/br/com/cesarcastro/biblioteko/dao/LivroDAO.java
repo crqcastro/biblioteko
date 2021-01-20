@@ -1,15 +1,11 @@
-package br.com.cesarcastro.biblioteko.service;
+package br.com.cesarcastro.biblioteko.dao;
 
 import java.util.List;
 
 import br.com.cesarcastro.biblioteko.model.LivroModel;
 
-public interface LivroService {
+public interface LivroDAO extends DaoGenerico<LivroModel, Long> {
 
 	List<LivroModel> buscarLivros(Long offset, Long size, LivroModel params);
-
-	LivroModel findById(Long id);
-	
-	void salvarLivro(LivroModel livro);
 
 }
