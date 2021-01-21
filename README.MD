@@ -17,5 +17,5 @@
 Ao subir o projeto, a documentação pode ser acessada em
 http://{host:porta}/swagger-ui.html
 
-## plus
+## Plus
  * Adiconado teste arquitetural usando o Archunit
