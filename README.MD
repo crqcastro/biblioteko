@@ -13,3 +13,7 @@ Para isso utilizei:
 * MySQL
 * JUnit
 * Swagger
+
+Ao subir o projeto, a documentação pode ser acessada em
+http://{host:porta}/swagger-ui.html
+
