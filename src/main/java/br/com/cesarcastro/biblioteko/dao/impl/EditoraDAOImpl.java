@@ -14,7 +14,7 @@ import br.com.cesarcastro.biblioteko.dao.EditoraDAO;
 import br.com.cesarcastro.biblioteko.model.EditoraModel;
 
 @Repository
-public class EditraDAOImpl extends DaoGenericoImpl<EditoraModel, Long> implements EditoraDAO{
+public class EditoraDAOImpl extends DaoGenericoImpl<EditoraModel, Long> implements EditoraDAO{
 
 	@PersistenceContext
     private EntityManager entityManager;

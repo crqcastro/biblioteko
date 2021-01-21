@@ -10,26 +10,27 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import br.com.cesarcastro.biblioteko.model.AutorModel;
+import br.com.cesarcastro.biblioteko.model.EditoraModel;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
-public class AutorDaoImplTest {
+public class EditoraDAOImplTest {
 
 	@Autowired
-	private AutorDaoImpl autorDao;
+	private EditoraDAOImpl editoraDao;
 	
 	@Test
-	public void DeveSalvarUmAltorComSucessoERetornaloNaLista() {
-		AutorModel autor = new AutorModel();
-		autor.setNome("Cesar");
-		autor.setSobrenome("Castro");
-		autor.setShortName("Castro, C");
+	public void DeveSalvarUmaEditoraComSucessoERetornaloNaLista() {
+		EditoraModel em = new EditoraModel();
+		em.setMunicipio("São Luis");
+		em.setPais("Brasil");
+		em.setNome("Teste");
+		em.setUf("MA");
+
+		editoraDao.salvar(em);
 		
-		autorDao.salvar(autor);
-		
-		assertTrue(autorDao.findAutoresByProps(autor).size()==1);
+		assertTrue(editoraDao.obterEditorasPeloNome(em).size()==1);
 		
 	}
 

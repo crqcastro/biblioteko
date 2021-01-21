@@ -30,15 +30,15 @@ public class LivroDAOImpl extends DaoGenericoImpl<LivroModel, Long> implements L
 		if (StringUtils.hasLength(params.getTitulo())) {
 			sb.append("and lower(e.titulo) like lower(:titulo) ");
 		}
-		if (StringUtils.hasLength(params.getTitulo())) {
-			sb.append("and lower(e.isbn) = lower(:isbn) ");
+		if (StringUtils.hasLength(params.getISBN())) {
+			sb.append("and lower(e.ISBN) = lower(:isbn) ");
 		}
 		TypedQuery<LivroModel> query = entityManager.createQuery(sb.toString(), LivroModel.class);
 
 		if (StringUtils.hasLength(params.getTitulo())) {
 			query.setParameter("titulo", "%" + params.getTitulo() + "%");
 		}
-		if (StringUtils.hasLength(params.getTitulo())) {
+		if (StringUtils.hasLength(params.getISBN())) {
 			query.setParameter("isbn", params.getISBN());
 		}
 
