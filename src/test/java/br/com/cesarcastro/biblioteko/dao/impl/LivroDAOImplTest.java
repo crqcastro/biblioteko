@@ -20,7 +20,7 @@ import br.com.cesarcastro.biblioteko.model.LivroModel;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
-class LivroDAOImplTest {
+public class LivroDAOImplTest {
 
 	@Autowired
 	private LivroDAOImpl livroDao;
