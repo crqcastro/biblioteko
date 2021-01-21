@@ -3,7 +3,7 @@
 Criar uma API com:
 * Get/Post/Delete/Put;
 * Testes unitários, usando banco em memória;
-* Teste “mockando” o retorno de uma API de terceiros; (Ainda em desenvolvimento)
+* Teste “mockando” o retorno de uma API;
 * Documentação via Swagger;
 
 Para isso utilizei:
