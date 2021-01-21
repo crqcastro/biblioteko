@@ -1,12 +1,12 @@
 # Desafio de programação
 
-Criar uma API com:
+## Criar uma API com:
 * Get/Post/Delete/Put;
 * Testes unitários, usando banco em memória;
 * Teste “mockando” o retorno de uma API;
 * Documentação via Swagger;
 
-Para isso utilizei:
+## Para isso utilizei:
 * Spring
 * H2 (Testes)
 * Hibernate
@@ -17,3 +17,5 @@ Para isso utilizei:
 Ao subir o projeto, a documentação pode ser acessada em
 http://{host:porta}/swagger-ui.html
 
+## plus
+ * Adiconado teste arquitetural usando o Archunit
