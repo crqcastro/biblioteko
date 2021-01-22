@@ -1,7 +1,7 @@
 # Desafio de programação
 
-## Criar uma API com:
-* Get/Post/Delete/Put;
+## Criar uma API utilizando o Spring contendo:
+* Métodos: Get/Post/Delete/Put;
 * Testes unitários, usando banco em memória;
 * Teste “mockando” o retorno de uma API;
 * Documentação via Swagger;
