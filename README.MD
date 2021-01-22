@@ -13,6 +13,7 @@
 * MySQL
 * JUnit
 * Swagger
+* Mockito
 
 Ao subir o projeto, a documentação pode ser acessada em
 http://{host:porta}/swagger-ui.html
