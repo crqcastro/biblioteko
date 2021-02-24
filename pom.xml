@@ -22,6 +22,9 @@
 		<spring.thin.version>1.0.22.RELEASE</spring.thin.version>
 		<sonar.core.codeCoveragePlugin>jacoco</sonar.core.codeCoveragePlugin>
 		<sonar.coverage.jacoco.xmlReportPaths>${project.build.directory}/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+		<sonar.projectKey>crqcastro_biblioteko</sonar.projectKey>
+		<sonar.organization>crqcastro</sonar.organization>
+		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
 	</properties>
 	<dependencies>
 		<dependency>
