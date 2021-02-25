@@ -13,7 +13,7 @@
 
 	<groupId>br.com.cesarcastro</groupId>
 	<artifactId>biblioteko</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>biblioteko</name>
 	<description>API para controle de biblioteca</description>
 	<properties>
