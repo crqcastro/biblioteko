@@ -85,7 +85,6 @@ public class DaoGenericoImpl<T, K extends Serializable> implements DaoGenerico<T
         try {
             entityManager.persist(obj);
         } catch (Exception e) {
-            e.printStackTrace();
             throw new DaoException(e);
         }
     }
@@ -97,7 +96,6 @@ public class DaoGenericoImpl<T, K extends Serializable> implements DaoGenerico<T
                 entityManager.persist(obj);
             }
         } catch (Exception e) {
-            e.printStackTrace();
             throw new DaoException(e);
         }
     }
