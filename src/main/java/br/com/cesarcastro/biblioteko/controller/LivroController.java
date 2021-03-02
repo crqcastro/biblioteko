@@ -51,7 +51,6 @@ public class LivroController {
 		LivroModel livro = livroService.findById(id);
 		if (livro == null || livro.getTitulo() == null)
 			return ResponseEntity.notFound().build();
-		System.out.println(livro.getAutores().size());
 		return ResponseEntity.ok(livro);
 	}
 
@@ -68,7 +67,6 @@ public class LivroController {
 		try {
 			livroService.salvarLivro(livro);
 		}catch(DaoException e) {
-			e.printStackTrace();
 			return ResponseEntity.badRequest().body("Livro ja existente");
 		}
 		
