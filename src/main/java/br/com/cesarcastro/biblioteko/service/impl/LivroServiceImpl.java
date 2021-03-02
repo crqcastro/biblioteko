@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.com.cesarcastro.biblioteko.dao.LivroDAO;
 import br.com.cesarcastro.biblioteko.model.LivroModel;
@@ -25,6 +26,7 @@ public class LivroServiceImpl implements LivroService {
 		return this.livroDAO.recuperar(id);
 	}
 
+	@Transactional
 	@Override
 	public void salvarLivro(LivroModel livro) {
 		this.livroDAO.salvar(livro);
@@ -40,14 +42,15 @@ public class LivroServiceImpl implements LivroService {
 		return this.livroDAO.listarLivros(offset, size);
 	}
 
+	@Transactional
 	@Override
 	public void deleteLivro(Long id) {
 		LivroModel lm = this.livroDAO.recuperar(id);
 		lm.setStatus(0);
-		;
 		this.livroDAO.excluir(lm);
 	}
 
+	@Transactional
 	@Override
 	public void alterarStatusLivro(Long id, Integer status) throws NotFoundException {
 		LivroModel lm = this.livroDAO.recuperar(id);
@@ -57,6 +60,7 @@ public class LivroServiceImpl implements LivroService {
 		this.livroDAO.merge(lm);
 	}
 
+	@Transactional
 	@Override
 	public void alterarLivro(LivroModel livro) {
 		this.livroDAO.merge(livro);
